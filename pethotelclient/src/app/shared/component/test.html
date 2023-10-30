@@ -1,0 +1,68 @@
+<form [formGroup]="bookingForm">
+  <h3>Booking</h3>
+
+  <label for="startDate">Start Date: </label>
+  <input id="startDate" type="text" formControlName="startDate" />
+
+  <label for="endDate">End Date: </label>
+  <input id="endDate" type="text" formControlName="endDate" />
+
+  <label for="checked-in">Checked In: </label>
+  <input id="checked-in" type="text" formControlName="checkedIn" />
+
+  <label for="expired">Expired: </label>
+  <input id="expired" type="text" formControlName="expired" />
+
+  <div formGroupName="owner">
+    <h3>Owner</h3>
+    <label for="firstName">First Name: </label>
+    <input id="firstName" type="text" formControlName="firstName" />
+
+    <label for="lastName">Last Name: </label>
+    <input id="lastName" type="text" formControlName="lastName" />
+
+    <label for="email">Email: </label>
+    <input id="email" type="text" formControlName="email" />
+
+    <label for="phoneNumber">Phone Number: </label>
+    <input id="phoneNumber" type="text" formControlName="phoneNumber" />
+
+    <div formArrayName="emergencyContacts">
+      <h3>Emergency Contacts</h3>
+      <button>Add emergency contact</button>
+      <div
+        *ngFor="
+          let emergencyContact of emergencyContactsFormArray.controls;
+          let i = index
+        "
+      >
+        <div [formGroupName]="i">
+          <label for="firstName">First Name: </label>
+          <input id="firstName" type="text" formControlName="firstName" />
+
+          <label for="lastName">Last Name: </label>
+          <input id="lastName" type="text" formControlName="lastName" />
+
+          <label for="email">Email: </label>
+          <input id="email" type="text" formControlName="email" />
+
+          <label for="phoneNumber">Phone Number: </label>
+          <input id="phoneNumber" type="text" formControlName="phoneNumber" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div formGroupName="rooms">
+    <h3>Rooms</h3>
+    <button>Add room</button>
+    <div *ngFor="let room of roomsFormArray.controls; let i = index">
+      <div [formGroupName]="i">
+        <label for="roomType">Room Type: </label>
+        <input id="roomType" type="text" formControlName="roomType" />
+      </div>
+    </div>
+  </div>
+</form>
+
+<pre>{{ bookingForm.value | json }}</pre>

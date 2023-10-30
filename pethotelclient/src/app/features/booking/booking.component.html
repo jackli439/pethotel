@@ -1,0 +1,71 @@
+<div
+  class="container-fluid overflow-auto my-5 bg-light"
+  style="max-width: 992px"
+>
+  <button type="button" class="btn btn-primary my-5" style="width: 128px"[routerLink]="['/booking-form']">
+    Add Booking
+  </button>
+
+  <h2>Bookings</h2>
+
+  <table class="table table-hover table-light" style="min-width: 992px">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Checked In</th>
+        <th scope="col">Rooms</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Expired</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="!bookings">
+        <div class="clearfix bg-light">
+          <div class="spinner-border spinner-border-sm text-primary">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          Loading...
+        </div>
+      </tr>
+      <tr
+        *ngFor="let booking of sortBookingsByStartDate(bookings)"
+        (click)="routeTo('booking-detail', booking.id)"
+        role="button"
+        [ngClass]="{ 'opacity-25': booking.expired }"
+      >
+        <td>
+          {{ booking.owner.firstName }} {{ booking.owner.lastName }}
+          {{ booking.id }}
+        </td>
+        <td>
+          <i
+            [ngClass]="{
+              'bi-check-circle-fill text-primary': booking.checkedIn,
+              'bi-x-circle-fill text-danger': !booking.checkedIn,
+              'bi fs-3 align-middle': true
+            }"
+          >
+          </i>
+        </td>
+        <td>
+          <div *ngFor="let room of booking.rooms">
+            {{ room.roomType.size }}
+          </div>
+        </td>
+        <td>{{ booking.startDate | date : "short" }}</td>
+        <td>{{ booking.endDate | date : "short" }}</td>
+        <td>
+          <i
+            [ngClass]="{
+              'bi-check-circle-fill text-primary': booking.expired,
+              'bi-x-circle-fill text-danger': !booking.expired,
+              'bi fs-3 align-middle': true
+            }"
+          >
+          </i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

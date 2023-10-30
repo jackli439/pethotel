@@ -1,0 +1,91 @@
+<div
+  class="container-fluid overflow-auto my-5 bg-light"
+  style="max-width: 992px"
+>
+  <div class="row mb-5">
+    <h3>Booking</h3>
+    <div class="col-md-6 my-2">
+      <div class="card">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            Checked In:
+            <i
+              [ngClass]="{
+                'bi-check-circle-fill text-primary': booking?.checkedIn,
+                'bi-x-circle-fill text-danger': !booking?.checkedIn,
+                'bi fs-3 align-middle': true
+              }"
+            >
+            </i>
+          </li>
+          <li class="list-group-item">
+            Start Date: {{ booking?.startDate | date : "short" }}
+          </li>
+          <li class="list-group-item">
+            End Date: {{ booking?.endDate | date : "short" }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <h3>Owner</h3>
+    <div class="col-md-6 my-2">
+      <div class="card">
+        <h5 class="card-header">
+          {{ booking?.owner?.firstName }} {{ booking?.owner?.lastName }}
+        </h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Email: {{ booking?.owner?.email }}</li>
+          <li class="list-group-item">
+            Phone Number: {{ booking?.owner?.phoneNumber }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <h3>Rooms</h3>
+    <div class="col-md-6 my-2" *ngFor="let room of booking?.rooms">
+      <div class="card">
+        <h5 class="card-header">Room Size: {{ room.roomType.size }}</h5>
+        <!-- <div class="card" > -->
+        <!-- <div class="card-body"> -->
+        <ul class="list-group list-group-flush" *ngFor="let pet of room.pets">
+          <li class="list-group-item">
+            Pet: {{ pet.name }} ({{ pet.petType | lowercase }})
+          </li>
+          <li class="list-group-item">Age: {{ pet.age }}</li>
+          <li class="list-group-item">
+            Spayed/Neutered: {{ pet.spayedOrNeutered }}
+          </li>
+        </ul>
+        <!-- </div> -->
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <h3>Emergency Contacts</h3>
+
+    <div
+      class="col-md-6 my-2"
+      *ngFor="let emergencyContact of booking?.owner?.emergencyContacts"
+    >
+      <div class="card">
+        <h5 class="card-header">
+          {{ emergencyContact.firstName }} {{ emergencyContact.lastName }}
+        </h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Email: {{ emergencyContact.email }}</li>
+          <li class="list-group-item">
+            Phone Number: {{ emergencyContact.phoneNumber }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

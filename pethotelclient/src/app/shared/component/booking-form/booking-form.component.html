@@ -1,0 +1,6 @@
+<form [formGroup]="bookingForm">
+
+  <app-booking-form-owner [ownerForm]="owner"></app-booking-form-owner>
+</form>
+
+{{ bookingForm.value | json}}
